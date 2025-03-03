@@ -1,14 +1,10 @@
 package main
 
-import (
-	"fmt"
-	"strings"
-)
+import "fmt"
 
 func main() {
-	fmt.Println("Hello, World!")
-	fmt.Println(string("Hello, World!"[0]))
+	t, f := true, false
 
-	var s string = "Hello, World!"
-	fmt.Println(strings.Replace(s, "H", "X", 1))
+	fmt.Printf("%t %v\n", t, f)
+	fmt.Printf("%t %v\n", f, f)
 }

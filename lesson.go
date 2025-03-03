@@ -5,16 +5,9 @@ import (
 )
 
 func main() {
-  n := make([]int, 3, 5)
-  fmt.Printf("len=%d cap=%d value=%v\n", len(n), cap(n), n)
-
-  n = append(n, 0, 0)
-  fmt.Printf("len=%d cap=%d value=%v\n", len(n), cap(n), n)
-
-  c := make([]int, 5)
-  for i := 0; i < 5; i++ {
-    c = append(c, i)
-    // fmt.Println(c)
+  m := map[string]int{
+    "apple": 100,
+    "banana": 200,
   }
-  fmt.Println(c)
+  fmt.Println(m)
 }

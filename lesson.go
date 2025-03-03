@@ -2,17 +2,13 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
 func main() {
-	var (
-		a int = 1
-		b float64 = 1.2
-		c string = "test"
-		d, e bool = true, false
-	)
+	fmt.Println("Hello, World!")
+	fmt.Println(string("Hello, World!"[0]))
 
-	fmt.Println(a, b, c, d, e)
-	x1 := 1
-	fmt.Printf("%T", x1)
+	var s string = "Hello, World!"
+	fmt.Println(strings.Replace(s, "H", "X", 1))
 }

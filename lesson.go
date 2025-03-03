@@ -5,15 +5,16 @@ import (
 )
 
 func main() {
-  n := []int{1, 2, 3, 4, 5}
-  fmt.Println(n)
-  fmt.Println(n[2])
-  fmt.Println(n[2:4])
+  n := make([]int, 3, 5)
+  fmt.Printf("len=%d cap=%d value=%v\n", len(n), cap(n), n)
 
-  var board = [][]int{
-    []int{0, 1, 2},
-    []int{3, 4, 5},
-    []int{6, 7, 8},
+  n = append(n, 0, 0)
+  fmt.Printf("len=%d cap=%d value=%v\n", len(n), cap(n), n)
+
+  c := make([]int, 5)
+  for i := 0; i < 5; i++ {
+    c = append(c, i)
+    // fmt.Println(c)
   }
-  fmt.Println(board)
+  fmt.Println(c)
 }

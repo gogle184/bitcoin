@@ -2,9 +2,19 @@ package main
 
 import "fmt"
 
+func one(x *int) {
+  *x = 1
+}
+
 func main() {
-  l := []string{"python", "go", "java"}
-  for i, v  := range l {
-    fmt.Println(i, v)
-  }
+  var n int= 100
+  one(&n)
+  fmt.Println(n)
+//   var n int= 100
+//   fmt.Println(n)
+//   fmt.Println(&n)
+
+//   var p *int = &n
+//   fmt.Println(p)
+//   fmt.Println(*p)
 }

@@ -2,19 +2,29 @@ package main
 
 import "fmt"
 
-func one(x *int) {
-  *x = 1
+type Vertex struct {
+  X int
+  Y int
+}
+
+func (v Vertex) Area() int {
+  return v.X * v.Y
+}
+
+func (v *Vertex) Scale(i int) {
+  v.X = v.X * i
+  v.Y = v.Y * i
+}
+
+func Area(v Vertex) int {
+  return v.X * v.Y
 }
 
 func main() {
-  var n int= 100
-  one(&n)
-  fmt.Println(n)
-//   var n int= 100
-//   fmt.Println(n)
-//   fmt.Println(&n)
+  v := Vertex{3,4}
+  fmt.Println(Area(v))
+  fmt.Println(v.Area())
 
-//   var p *int = &n
-//   fmt.Println(p)
-//   fmt.Println(*p)
+  v.Scale(10)
+  fmt.Println(v.Area())
 }

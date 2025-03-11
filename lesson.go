@@ -2,22 +2,16 @@ package main
 
 import "fmt"
 
-func do(i interface{}) {
-  // ii := i.(int)
-  // ii *= 2
-  // fmt.Println(ii)
-  switch v := i.(type) {
-  case int:
-    fmt.Println(v * 2)
-  case string:
-    fmt.Println(v + "!")
-  default:
-    fmt.Printf("I don't know %T\n", v)
-  }
+type Person struct {
+  Name string
+  Age int
+}
+
+func (p Person) String() string {
+  return fmt.Sprintf("My name is %v.", p.Name)
 }
 
 func main() {
-  do(10)
-  do("hello")
-  do(true)
+  mike := Person{"Mike", 20}
+  fmt.Println(mike)
 }

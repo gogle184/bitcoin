@@ -2,19 +2,22 @@ package main
 
 import "fmt"
 
-type Human interface {
-  Say() string
-}
-
-type Person struct {
-  Name string
-}
-
-func (p *Person) Say() string {
-  return "Hello, my name is " + p.Name
+func do(i interface{}) {
+  // ii := i.(int)
+  // ii *= 2
+  // fmt.Println(ii)
+  switch v := i.(type) {
+  case int:
+    fmt.Println(v * 2)
+  case string:
+    fmt.Println(v + "!")
+  default:
+    fmt.Printf("I don't know %T\n", v)
+  }
 }
 
 func main() {
-  var h Human = &Person{Name: "John"}
-  fmt.Println(h.Say())
+  do(10)
+  do("hello")
+  do(true)
 }

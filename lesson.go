@@ -2,29 +2,30 @@ package main
 
 import (
     "fmt"
-    "time"
-    "sync"
 )
 
-func goroutine(s string, wg *sync.WaitGroup){
-  for i :=0; i < 5; i++{
-    time.Sleep(100 * time.Millisecond)
-    fmt.Println(s)
+func goroutine(s []int, c chan int){
+  sum := 0
+  for _, v := range s{
+    sum += v
   }
-  wg.Done()
+  c <- sum
 }
 
-func normal(s string){
-  for i :=0; i < 5; i++{
-    time.Sleep(100 * time.Millisecond)
-    fmt.Println(s)
+func goroutine2(s []int, c chan int){
+  sum := 0
+  for _, v := range s{
+    sum += v
   }
+  c <- sum
 }
-
 func main(){
-  var wg sync.WaitGroup
-  wg.Add(1)
-  go goroutine("goroutine", &wg)
-  normal("normal")
-  wg.Wait()
+  s := []int{1, 2, 3, 4, 5}
+  c := make(chan int)
+  go goroutine(s, c)
+  go goroutine2(s, c)
+  x := <-c
+  y := <-c
+  fmt.Println(x)
+  fmt.Println(y)
 }

@@ -1,17 +1,30 @@
 package main
 
-import "fmt"
+import (
+    "fmt"
+    "time"
+    "sync"
+)
 
-type Person struct {
-  Name string
-  Age int
+func goroutine(s string, wg *sync.WaitGroup){
+  for i :=0; i < 5; i++{
+    time.Sleep(100 * time.Millisecond)
+    fmt.Println(s)
+  }
+  wg.Done()
 }
 
-func (p Person) String() string {
-  return fmt.Sprintf("My name is %v.", p.Name)
+func normal(s string){
+  for i :=0; i < 5; i++{
+    time.Sleep(100 * time.Millisecond)
+    fmt.Println(s)
+  }
 }
 
-func main() {
-  mike := Person{"Mike", 20}
-  fmt.Println(mike)
+func main(){
+  var wg sync.WaitGroup
+  wg.Add(1)
+  go goroutine("goroutine", &wg)
+  normal("normal")
+  wg.Wait()
 }

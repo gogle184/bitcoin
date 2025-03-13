@@ -2,17 +2,29 @@ package main
 
 import (
     "fmt"
+    "sync"
 )
 
-func main(){
-  ch := make(chan int, 2)
-  ch <- 100
-  fmt.Println(len(ch))
-  ch <- 200
-  fmt.Println(len(ch))
+func producer(ch chan int, i int){
+  ch <- i * 2
+}
 
-  close(ch)
-  for v := range ch{
-    fmt.Println(v)
+func consumer(ch chan int, wg *sync.WaitGroup){
+  for i := range ch{
+    fmt.Println("received", i * 1000)
+    wg.Done()
   }
+}
+
+func main(){
+  var wg sync.WaitGroup
+  ch := make(chan int)
+  for i := 0; i < 10; i++{
+    wg.Add(1)
+    go producer(ch, i)
+  }
+
+  go consumer(ch, &wg)
+  wg.Wait()
+  close(ch)
 }

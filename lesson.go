@@ -2,29 +2,39 @@ package main
 
 import (
     "fmt"
-    "sync"
+
 )
 
-func producer(ch chan int, i int){
-  ch <- i * 2
+func producer(first chan int){
+  defer close(first)
+  for i := 0; i < 10; i++{
+    first <- i
+  }
 }
 
-func consumer(ch chan int, wg *sync.WaitGroup){
-  for i := range ch{
-    fmt.Println("received", i * 1000)
-    wg.Done()
+func multi2(first chan int, second chan int){
+  defer close(second)
+  for i := range first{
+    second <- i * 2
+  }
+}
+
+func multi3(second chan int, third chan int){
+  defer close(third)
+  for i := range second{
+    third <- i * 4
   }
 }
 
 func main(){
-  var wg sync.WaitGroup
-  ch := make(chan int)
-  for i := 0; i < 10; i++{
-    wg.Add(1)
-    go producer(ch, i)
-  }
+  first := make(chan int)
+  second := make(chan int)
+  third := make(chan int)
 
-  go consumer(ch, &wg)
-  wg.Wait()
-  close(ch)
+  go producer(first)
+  go multi2(first, second)
+  go multi3(second, third)
+  for result := range third{
+    fmt.Println(result)
+  }
 }

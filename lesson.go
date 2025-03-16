@@ -1,21 +1,16 @@
 package main
 
 import (
-	"encoding/json"
+	"crypto/hmac"
+	"crypto/sha256"
 	"fmt"
 )
 
-type Person struct {
-	Name string
-	Age  int
-	NickNames []string
-}
 
 func main() {
-	b := []byte(`{"name": "John", "age": 30, "nicknames": ["John", "Johny", "Johnathan"]}`)
-	var p Person
-	if err := json.Unmarshal(b, &p); err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(p.Name, p.Age, p.NickNames)
+	const apiKey = "1234567890"
+	const apiSecret = "0987654321"
+
+	h := hmac.New(sha256.New, []byte(apiSecret))
+	fmt.Println(h)
 }

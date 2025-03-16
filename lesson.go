@@ -1,15 +1,21 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 )
 
-const (
-	c1 = iota
-	c2 = iota
-	c3 = iota
-)
+type Person struct {
+	Name string
+	Age  int
+	NickNames []string
+}
 
 func main() {
-	fmt.Println(c1, c2, c3)
+	b := []byte(`{"name": "John", "age": 30, "nicknames": ["John", "Johny", "Johnathan"]}`)
+	var p Person
+	if err := json.Unmarshal(b, &p); err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(p.Name, p.Age, p.NickNames)
 }

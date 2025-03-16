@@ -2,11 +2,14 @@ package main
 
 import (
 	"fmt"
-	"time"
+)
+
+const (
+	c1 = iota
+	c2 = iota
+	c3 = iota
 )
 
 func main() {
-	t := time.Now()
-	fmt.Println(t)
-	fmt.Println(t.Format(time.RFC3339))
+	fmt.Println(c1, c2, c3)
 }
